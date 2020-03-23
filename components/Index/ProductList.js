@@ -1,5 +1,5 @@
-import { Card } from "semantic-ui-react";
-import Link from "next/link";
+import { Card, Header } from "semantic-ui-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ProductList({ products }) {
   const mapProductsToItems = products => {
@@ -7,12 +7,18 @@ function ProductList({ products }) {
       <Card
         href={`/product?_id=${product._id}`}
         key={product._id}
-        meta={`$${product.price}`}
-        image={product.mediaUrl}
         fluid
         color="teal"
-        header={product.name}
-      />
+      >
+        <Header>{product.name}</Header>
+        <LazyLoadImage
+          alt=""
+          effect="blur"
+          src={product.mediaUrl}
+          width={180}
+        />
+        <div>{`$${product.price}`}</div>
+      </Card>
     ));
   };
 

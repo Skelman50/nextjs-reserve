@@ -6,6 +6,11 @@ import { baseURL } from "../utils/baseUrl";
 import { useEffect } from "react";
 import Router from "next/router";
 
+import "semantic-ui-css/semantic.min.css";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../static/nprogress.css";
+import "../static/styles.css";
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     window.addEventListener("storage", syncLogout);
@@ -24,6 +29,7 @@ function MyApp({ Component, pageProps }) {
 }
 
 MyApp.getInitialProps = async function({ Component, ctx }) {
+  console.log("asdasdasd");
   let pageProps = {};
   const { token } = parseCookies(ctx);
   if (Component.getInitialProps) {
@@ -41,6 +47,7 @@ MyApp.getInitialProps = async function({ Component, ctx }) {
       const url = `${baseURL}/account`;
       const response = await axios.get(url, payload);
       const user = response.data;
+
       const isRoot = user.role === "root";
       const isAdmin = user.role === "admin";
       const isNotPermitted = !(isRoot || isAdmin) && ctx.pathname === "/create";
